@@ -1,0 +1,7 @@
+# playbook.yml
+---
+- hosts: all
+  roles:
+    - apache
+    - php
+    - composer

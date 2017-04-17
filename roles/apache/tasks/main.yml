@@ -1,0 +1,22 @@
+---
+- name: 1. install Apache
+  apt: name={{ item }} state=present
+  with_items:
+    - apache2
+    - mysql-server
+    - python-mysqldb
+    - curl
+
+- name: 2. install Hello World PHP script
+  copy: src=index.php dest=/var/www/html/index.php mode=0664
+
+- name: 3. start Apache et mysql-server
+  service: name={{item}} state=running enabled=yes
+  with_items:
+    - apache2
+    - mysql
+
+- name: Create a new database with name 'drupal8'
+  mysql_db:
+    name: drupal8
+    state: present
